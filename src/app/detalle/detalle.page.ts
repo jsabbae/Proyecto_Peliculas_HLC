@@ -7,6 +7,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
   selector: 'app-detalle',
   templateUrl: './detalle.page.html',
   styleUrls: ['./detalle.page.scss'],
+  standalone: false
 })
 export class DetallePage implements OnInit {
   id: string = "";
@@ -17,10 +18,11 @@ export class DetallePage implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private firestore: AngularFirestore 
+    private firestore: AngularFirestore
   ) { }
 
   ngOnInit() {
+    //  Se almacena en una variable el id que se ha recibido desde la página anterior
     let idRecibido = this.activatedRoute.snapshot.paramMap.get('id');
     if (idRecibido != null) {
       this.id = idRecibido;
