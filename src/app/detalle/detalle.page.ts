@@ -28,8 +28,9 @@ export class DetallePage implements OnInit {
       this.id = "";
     }
 
+    //  Se hace la consulta a la base de datos para obtener los datos asociado a esa id
     this.firestore.collection('tareas').doc(this.id).get().subscribe((resultado: any) => {
-      if (resultado.exists) {
+      if (resultado.exists) { // Verifica si existe el docuemnto
         this.document.id = resultado.id;
         this.document.data = resultado.data();
         console.log(this.document.data.titulo);
@@ -40,12 +41,10 @@ export class DetallePage implements OnInit {
   }
 
   editarPelicula() {
-    // Lógica para editar la película
     console.log('Editar película');
   }
 
   eliminarPelicula() {
-    // Lógica para eliminar la película
     console.log('Eliminar película');
   }
 }
