@@ -1,0 +1,7 @@
+{
+  "name": "ejemplo-firesetore",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
