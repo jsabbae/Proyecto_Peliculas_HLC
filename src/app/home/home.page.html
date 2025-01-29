@@ -10,7 +10,7 @@
       <ion-title size="large">Lista de Películas</ion-title>
     </ion-toolbar>
   </ion-header>
-  
+
   <form (ngSubmit)="agregarPelicula()">
     <ion-item class="input-item">
       <ion-label>Título</ion-label>
@@ -22,7 +22,7 @@
     </ion-item>
     <ion-button expand="full" type="submit">Añadir Película</ion-button>
   </form>
-  
+
   <ion-list>
     <ion-item *ngFor="let pelicula of peliculas" (click)="verDetalle(pelicula.id)">
       <ion-label>
@@ -31,4 +31,12 @@
       </ion-label>
     </ion-item>
   </ion-list>
+
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button (click) = "verDetalle('new')">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
 </ion-content>

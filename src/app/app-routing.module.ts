@@ -17,6 +17,11 @@ const routes: Routes = [
     path: 'detalle/:id',
     loadChildren: () => import('./detalle/detalle.module').then(m => m.DetallePageModule)
   },
+  // Para el ion-fab-button
+  {
+    path: 'detalle/new',
+    loadChildren: () => import('./detalle/detalle.module').then(m => m.DetallePageModule)
+  },
 ];
 
 @NgModule({

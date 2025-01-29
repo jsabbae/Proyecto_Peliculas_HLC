@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Tarea } from '../tarea';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 
@@ -15,10 +15,16 @@ export class DetallePage implements OnInit {
     id: "",
     data: {} as Tarea
   };
-
+  /*
+  isNew nos servirá para determinar si estamos creando un nuevo elemento
+  o editando uno existente. Si es true, estamos creando un nuevo elemento.
+  Si es false, estamos editando un elemento existente.
+  */
+  isNew: boolean = false
   constructor(
     private activatedRoute: ActivatedRoute,
-    private firestore: AngularFirestore
+    private firestore: AngularFirestore,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -41,12 +47,20 @@ export class DetallePage implements OnInit {
       }
     });
   }
+  cancelar() {
+    this.router.navigate(['/home']);
+  }
 
   editarPelicula() {
     console.log('Editar película');
   }
 
   eliminarPelicula() {
+    if (!this.isNew) {
+      this.firestore.collection('tareas').doc(this.id).delete().then(() => {
+        this.router.navigate(['/home']);
+      });
+    }
     console.log('Eliminar película');
   }
 }
