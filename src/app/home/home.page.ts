@@ -38,12 +38,12 @@ export class HomePage implements OnInit {
     }
   }
 
-  // Función que maneja al <ion-fab-button>
-  agregarNuevo(){
-this.router.navigate(['/detalle', 'nuevo']);
-  }
-
   verDetalle(id: string) {
     this.router.navigate(['/detalle', id]);
+  }
+
+  // Función que maneja al <ion-fab-button>
+  agregarNuevo() {
+    this.router.navigate(['/detalle', 'nuevo']);
   }
 }

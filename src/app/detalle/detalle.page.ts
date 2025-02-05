@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Tarea } from '../tarea';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AlertController } from '@ionic/angular';
+
+
 
 @Component({
   selector: 'app-detalle',
@@ -10,6 +13,23 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
   standalone: false
 })
 export class DetallePage implements OnInit {
+
+//  Función  de respuesta a la alerta de eliminación de la película seleccionada
+  public alertButtons = [
+    {
+      text: 'No',
+      cssClass: 'alert-button-cancel',
+    },
+    {
+      text: 'Si',
+      cssClass: 'alert-button-confirm',
+      handler: () => {
+        this.eliminarPelicula();
+      },
+    },
+  ];
+
+
   id: string = "";
   document: any = {
     id: "",
@@ -25,8 +45,21 @@ export class DetallePage implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private firestore: AngularFirestore,
-    private router: Router
+    private router: Router,
+    private alertController: AlertController
   ) { }
+
+  //  Mensaje si deseas eliminar la película
+  async presentAlert() {
+    var alert = await this.alertController.create({ //  Creación de la alerta
+      header: 'Confirmar',  //  Cabecera de la alerta
+      message: '¿Estás seguro de que deseas borrar esta película?', //  Mensaje de la alerta
+      buttons: this.alertButtons, //  El botón de alerta definido
+    });
+
+    await alert.present();  //  Muestra la alerta
+  }
+
 
   ngOnInit() {
     //  Se almacena en una variable el id que se ha recibido desde la página anterior

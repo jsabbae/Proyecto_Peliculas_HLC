@@ -20,6 +20,8 @@
     <ion-input [(ngModel)]="document.data.descripcion"></ion-input>
   </ion-item>
   <ion-button (click)="editarPelicula()">{{ isNew ? 'Guardar' : 'Modificar' }}</ion-button>
-  <ion-button color="danger" (click)="eliminarPelicula()" *ngIf="!isNew">Borrar</ion-button>
+  <ion-button color="danger" (click)="presentAlert()" *ngIf="!isNew">Borrar</ion-button>
+  <ion-alert id="alertaConfirmación" class="custom-alert" header="¿Estas seguro de eliminar esta película?"
+    [buttons]="alertButtons"></ion-alert>
   <ion-button color="light" (click)="cancelar()">Cancelar</ion-button>
 </ion-content>

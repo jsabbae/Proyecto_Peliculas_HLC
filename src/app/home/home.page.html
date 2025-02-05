@@ -12,14 +12,21 @@
   </ion-header>
 
   <form (ngSubmit)="agregarPelicula()">
+    <!-- Titulo -->
     <ion-item class="input-item">
       <ion-label>Título</ion-label>
       <ion-input [(ngModel)]="nuevaPelicula.titulo" name="titulo" required></ion-input>
     </ion-item>
+    <!-- Descripción -->
     <ion-item class="input-item">
       <ion-label>Descripción</ion-label>
       <ion-input [(ngModel)]="nuevaPelicula.descripcion" name="descripcion" required></ion-input>
     </ion-item>
+
+      <!-- Director/a -->
+             <!-- Música original -->
+                    <!-- Duración -->
+
     <ion-button expand="full" type="submit">Añadir Película</ion-button>
   </form>
 
@@ -34,7 +41,7 @@
 
 
   <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-    <ion-fab-button (click) = "agregarNuevo()">
+    <ion-fab-button (click)="agregarNuevo()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
