@@ -10,16 +10,16 @@
       <ion-title size="large">Detalle</ion-title>
     </ion-toolbar>
   </ion-header>
-  <h2>ID de la Película: {{ id }}</h2>
+  <h2 *ngIf="!isNew">ID de la Película: {{ id }}</h2>
   <ion-item class="input-item">
     <ion-label>Título:</ion-label>
-    <ion-input [(ngModel)]="document.data.titulo" readonly></ion-input>
+    <ion-input [(ngModel)]="document.data.titulo"></ion-input>
   </ion-item>
   <ion-item class="input-item">
     <ion-label>Descripción:</ion-label>
-    <ion-input [(ngModel)]="document.data.descripcion" readonly></ion-input>
+    <ion-input [(ngModel)]="document.data.descripcion"></ion-input>
   </ion-item>
-  <ion-button (click)="editarPelicula()">Modificar</ion-button>
-  <ion-button color="danger" (click)="eliminarPelicula()">Borrar</ion-button>
+  <ion-button (click)="editarPelicula()">{{ isNew ? 'Guardar' : 'Modificar' }}</ion-button>
+  <ion-button color="danger" (click)="eliminarPelicula()" *ngIf="!isNew">Borrar</ion-button>
   <ion-button color="light" (click)="cancelar()">Cancelar</ion-button>
 </ion-content>

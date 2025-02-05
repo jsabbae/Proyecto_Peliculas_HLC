@@ -4,8 +4,8 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Component({
   selector: 'app-home',
-  templateUrl: './home.page.html',
-  styleUrls: ['./home.page.scss'],
+  templateUrl: 'home.page.html',
+  styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
   peliculas: any[] = [];
@@ -36,6 +36,11 @@ export class HomePage implements OnInit {
         this.nuevaPelicula = { titulo: '', descripcion: '' }; // Limpia el formulario
       });
     }
+  }
+
+  // Función que maneja al <ion-fab-button>
+  agregarNuevo(){
+this.router.navigate(['/detalle', 'nuevo']);
   }
 
   verDetalle(id: string) {
