@@ -11,14 +11,42 @@
     </ion-toolbar>
   </ion-header>
   <h2 *ngIf="!isNew">ID de la Película: {{ id }}</h2>
+  <!-- Titulo -->
   <ion-item class="input-item">
     <ion-label>Título:</ion-label>
     <ion-input [(ngModel)]="document.data.titulo"></ion-input>
   </ion-item>
+  <!-- Descripción -->
   <ion-item class="input-item">
     <ion-label>Descripción:</ion-label>
     <ion-input [(ngModel)]="document.data.descripcion"></ion-input>
   </ion-item>
+  <!-- Director/a -->
+  <ion-item class="input-item">
+    <ion-label>Director/a:</ion-label>
+    <ion-input [(ngModel)]="document.data.director"></ion-input>
+  </ion-item>
+  <!-- Música original -->
+  <ion-item class="input-item">
+    <ion-label>Música original:</ion-label>
+    <ion-input [(ngModel)]="document.data.musica"></ion-input>
+  </ion-item>
+  <!-- Duración -->
+  <ion-item class="input-item">
+    <ion-label>Duración:</ion-label>
+    <ion-input [(ngModel)]="document.data.duracion"></ion-input>
+  </ion-item>
+  <!-- Precio de entrada -->
+  <ion-item class="input-item">
+    <ion-label>Precio de entrada:</ion-label>
+    <ion-input [(ngModel)]="document.data.precio"></ion-input>
+  </ion-item>
+  <!-- Fecha de Salida -->
+  <ion-item class="input-item">
+    <ion-label>Fecha de Salida:</ion-label>
+    <ion-input [(ngModel)]="document.data.fecha"></ion-input>
+  </ion-item>
+
   <ion-button (click)="editarPelicula()">{{ isNew ? 'Guardar' : 'Modificar' }}</ion-button>
   <ion-button color="danger" (click)="presentAlert()" *ngIf="!isNew">Borrar</ion-button>
   <ion-alert id="alertaConfirmación" class="custom-alert" header="¿Estas seguro de eliminar esta película?"

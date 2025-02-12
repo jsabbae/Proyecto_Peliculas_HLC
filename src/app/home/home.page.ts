@@ -1,23 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
-  templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
+  templateUrl: './home.page.html',
+  styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
-  peliculas: any[] = [];
   nuevaPelicula: any = {
     titulo: '',
-    descripcion: ''
+    descripcion: '',
+    director: '',
+    musica: '',
+    duracion: '',
+    precio: '',
+    fecha: ''
   };
 
-  constructor(
-    private router: Router,
-    private firestore: AngularFirestore
-  ) { }
+  peliculas: any[] = [];
+
+  constructor(private firestore: AngularFirestore, private router: Router) {}
 
   ngOnInit() {
     this.firestore.collection('tareas').snapshotChanges().subscribe((res) => {
@@ -31,18 +34,23 @@ export class HomePage implements OnInit {
   }
 
   agregarPelicula() {
-    if (this.nuevaPelicula.titulo && this.nuevaPelicula.descripcion) {
-      this.firestore.collection('tareas').add(this.nuevaPelicula).then(() => {
-        this.nuevaPelicula = { titulo: '', descripcion: '' }; // Limpia el formulario
-      });
-    }
+    this.firestore.collection('tareas').add(this.nuevaPelicula).then(() => {
+      this.nuevaPelicula = {
+        titulo: '',
+        descripcion: '',
+        director: '',
+        musica: '',
+        duracion: '',
+        precio: '',
+        fecha: ''
+      };
+    });
   }
 
   verDetalle(id: string) {
     this.router.navigate(['/detalle', id]);
   }
 
-  // Función que maneja al <ion-fab-button>
   agregarNuevo() {
     this.router.navigate(['/detalle', 'nuevo']);
   }

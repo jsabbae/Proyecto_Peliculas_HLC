@@ -96,7 +96,7 @@ export class DetallePage implements OnInit {
         this.router.navigate(['/home']);
         console.log(`La película ${this.document.data.titulo} ha sido creada`);
       });
-    } else {  //  EDita una película existente
+    } else {  //  Edita una película existente
       this.firestore.collection('tareas').doc(this.id).update(this.document.data).then(() => {
         //  Navega de regreso a la lista
         this.router.navigate(['/home']);

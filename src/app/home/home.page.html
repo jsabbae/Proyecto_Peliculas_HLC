@@ -1,31 +1,46 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Lista de Películas</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+  <ion-header [translucent]="true">
     <ion-toolbar>
-      <ion-title size="large">Lista de Películas</ion-title>
+      <ion-title>Lista de Películas</ion-title>
     </ion-toolbar>
   </ion-header>
 
   <form (ngSubmit)="agregarPelicula()">
     <!-- Titulo -->
     <ion-item class="input-item">
-      <ion-label>Título</ion-label>
+      <ion-label>Título:</ion-label>
       <ion-input [(ngModel)]="nuevaPelicula.titulo" name="titulo" required></ion-input>
     </ion-item>
     <!-- Descripción -->
     <ion-item class="input-item">
-      <ion-label>Descripción</ion-label>
+      <ion-label>Descripción:</ion-label>
       <ion-input [(ngModel)]="nuevaPelicula.descripcion" name="descripcion" required></ion-input>
     </ion-item>
-
-      <!-- Director/a -->
-             <!-- Música original -->
-                    <!-- Duración -->
+    <!-- Director/a -->
+    <ion-item class="input-item">
+      <ion-label>Director/a:</ion-label>
+      <ion-input [(ngModel)]="nuevaPelicula.director" name="director" required></ion-input>
+    </ion-item>
+    <!-- Música original -->
+    <ion-item class="input-item">
+      <ion-label>Música original:</ion-label>
+      <ion-input [(ngModel)]="nuevaPelicula.musica" name="musica" required></ion-input>
+    </ion-item>
+    <!-- Duración -->
+    <ion-item class="input-item">
+      <ion-label>Duración:</ion-label>
+      <ion-input [(ngModel)]="nuevaPelicula.duracion" name="duracion" required></ion-input>
+    </ion-item>
+    <!-- Precio de entrada -->
+    <ion-item class="input-item">
+      <ion-label>Precio de entrada:</ion-label>
+      <ion-input [(ngModel)]="nuevaPelicula.precio" name="precio" required></ion-input>
+    </ion-item>
+    <!-- Fecha de Salida -->
+    <ion-item class="input-item">
+      <ion-label>Fecha:</ion-label>
+      <ion-input [(ngModel)]="nuevaPelicula.fecha" name="fecha" required></ion-input>
+    </ion-item>
 
     <ion-button expand="full" type="submit">Añadir Película</ion-button>
   </form>
@@ -34,16 +49,13 @@
     <ion-item *ngFor="let pelicula of peliculas" (click)="verDetalle(pelicula.id)">
       <ion-label>
         <h2>{{ pelicula.data.titulo }}</h2>
-        <p>{{ pelicula.data.descripcion }}</p>
       </ion-label>
     </ion-item>
   </ion-list>
-
 
   <ion-fab slot="fixed" vertical="bottom" horizontal="end">
     <ion-fab-button (click)="agregarNuevo()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-
 </ion-content>
