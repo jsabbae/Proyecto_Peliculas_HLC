@@ -20,12 +20,16 @@ export class FirestoreService {
     return this.angularFirestore.collection(coleccion).doc(id).snapshotChanges();
   }
 
-  public subirImagenBase64(nombreCarpeta:string, nombreArchivo:string, imagenBase64:string){
+  //  Fase 6
+
+  public subirImagenBase64(nombreCarpeta: string, nombreArchivo: string, imagenBase64: string) {
     let storageRef = this.angularFireStorage.ref(nombreCarpeta).child(nombreArchivo);
     return storageRef.putString(imagenBase64, 'data_url');
   }
 
-  public eliminarArchivoPorURL(url:string){
+  public eliminarArchivoPorURL(url: string) {
     return this.angularFireStorage.storage.refFromURL(url).delete();
   }
+
+
 }
