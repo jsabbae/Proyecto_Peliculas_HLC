@@ -1,4 +1,4 @@
-export interface Tarea {
+export interface Pelicula {
     titulo:string;
     descripcion:string;
 }

@@ -23,7 +23,7 @@ export class HomePage implements OnInit {
   constructor(private firestore: AngularFirestore, private router: Router) {}
 
   ngOnInit() {
-    this.firestore.collection('tareas').snapshotChanges().subscribe((res) => {
+    this.firestore.collection('peliculas').snapshotChanges().subscribe((res) => {
       this.peliculas = res.map((t) => {
         return {
           id: t.payload.doc.id,
@@ -34,7 +34,7 @@ export class HomePage implements OnInit {
   }
 
   agregarPelicula() {
-    this.firestore.collection('tareas').add(this.nuevaPelicula).then(() => {
+    this.firestore.collection('peliculas').add(this.nuevaPelicula).then(() => {
       this.nuevaPelicula = {
         titulo: '',
         descripcion: '',

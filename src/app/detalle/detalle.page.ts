@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Tarea } from '../tarea';
+import { Pelicula } from '../pelicula';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController, ToastController } from '@ionic/angular';
+import { FirestoreService } from '../firestore.service';
+import { ImagePicker } from '@awesome-cordova-plugins/image-picker/ngx';
 
 
 
@@ -14,7 +16,7 @@ import { AlertController } from '@ionic/angular';
 })
 export class DetallePage implements OnInit {
 
-//  Función  de respuesta a la alerta de eliminación de la película seleccionada
+  //  Función  de respuesta a la alerta de eliminación de la película seleccionada
   public alertButtons = [
     {
       text: 'No',
@@ -33,7 +35,7 @@ export class DetallePage implements OnInit {
   id: string = "";
   document: any = {
     id: "",
-    data: {} as Tarea
+    data: {} as Pelicula
   };
   /*
   isNew nos servirá para determinar si estamos creando un nuevo elemento
@@ -45,7 +47,9 @@ export class DetallePage implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private firestore: AngularFirestore,
-    private router: Router,
+    private router: Router, private loadingController: LoadingController,
+    private toastController: ToastController,
+    private imagePicker: ImagePicker,
     private alertController: AlertController
   ) { }
 
@@ -73,13 +77,13 @@ export class DetallePage implements OnInit {
 
     //  Se hace la consulta a la base de datos para obtener los datos asociado a esa id
     if (!this.isNew) {
-      this.firestore.collection('tareas').doc(this.id).get().subscribe((resultado: any) => {
+      this.firestore.collection('peliculas').doc(this.id).get().subscribe((resultado: any) => {
         if (resultado.exists) { // Verifica si existe el docuemnto
           this.document.id = resultado.id;
           this.document.data = resultado.data();
           console.log(this.document.data.titulo);
         } else {
-          this.document.data = {} as Tarea;
+          this.document.data = {} as Pelicula;
         }
       });
     }
@@ -91,13 +95,13 @@ export class DetallePage implements OnInit {
 
   editarPelicula() {
     if (this.isNew) { //  Introduce una nueva película del botón <ion-fab-button>
-      this.firestore.collection('tareas').add(this.document.data).then(() => {
+      this.firestore.collection('peliculas').add(this.document.data).then(() => {
         //  Navega de regreso a la lista
         this.router.navigate(['/home']);
         console.log(`La película ${this.document.data.titulo} ha sido creada`);
       });
     } else {  //  Edita una película existente
-      this.firestore.collection('tareas').doc(this.id).update(this.document.data).then(() => {
+      this.firestore.collection('peliculas').doc(this.id).update(this.document.data).then(() => {
         //  Navega de regreso a la lista
         this.router.navigate(['/home']);
         console.log(`La película ${this.document.data.titulo} ha sido editada`);
@@ -107,7 +111,7 @@ export class DetallePage implements OnInit {
 
   eliminarPelicula() {
     if (!this.isNew) {
-      this.firestore.collection('tareas').doc(this.id).delete().then(() => {
+      this.firestore.collection('peliculas').doc(this.id).delete().then(() => {
         this.router.navigate(['/home']);
         console.log(`La película ${this.document.data.titulo} ha sido eliminada`);
       });

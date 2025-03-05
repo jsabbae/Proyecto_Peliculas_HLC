@@ -31,11 +31,11 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule {
-  idTareaSelec: string = "";
+  idPeliculaSelec: string = "";
 
   constructor(private router: Router) { }
-  selectTarea() {
-    this.router.navigate(['/detalle', this.idTareaSelec]);
+  selectPelicula() {
+    this.router.navigate(['/detalle', this.idPeliculaSelec]);
   }
 }
 
