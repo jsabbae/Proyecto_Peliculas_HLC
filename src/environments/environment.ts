@@ -5,12 +5,13 @@
 export const environment = {
   production: false,
   firebaseConfig : {
-    apiKey: "AIzaSyBtZJYWWDlZVb-EdmYpTNYYP5asHJwWLyw",
-    authDomain: "ejemplo-cloud-firestores.firebaseapp.com",
-    projectId: "ejemplo-cloud-firestores",
-    storageBucket: "ejemplo-cloud-firestores.firebasestorage.app",
-    messagingSenderId: "331136366056",
-    appId: "1:331136366056:web:e687f06de6bcfa4d98a05d"
+    apiKey: "AIzaSyD-XegLWrIdZJWTC81wnjHB5nQkUkhIxCU",
+    authDomain: "ejemplo-tareas-b68dd.firebaseapp.com",
+    projectId: "ejemplo-tareas-b68dd",
+    storageBucket: "ejemplo-tareas-b68dd.appspot.com",
+    messagingSenderId: "962643459473",
+    appId: "1:962643459473:web:e0767bbeb3926c253d2e30",
+    measurementId: "G-14DZEKLYJK"
   }
 };
 
