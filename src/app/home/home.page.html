@@ -29,13 +29,12 @@
     <!-- Duración -->
     <ion-item class="input-item">
       <ion-label>Duración:</ion-label>
-      <ion-input [(ngModel)]="nuevaPelicula.duracion" name="duracion" placeholder="00:00" required></ion-input>
+      <ion-input [(ngModel)]="nuevaPelicula.duracion" placeholder="00:00" name="duracion" required></ion-input>
     </ion-item>
     <!-- Precio de entrada -->
     <ion-item class="input-item">
       <ion-label>Precio de entrada:</ion-label>
-      <ion-input [(ngModel)]="nuevaPelicula.precio" type="number" inputmode="decimal" step="0.01" name="precio"
-        required></ion-input>
+      <ion-input [(ngModel)]="nuevaPelicula.precio" type="number" inputmode="decimal" step="0.01" name="precio" required></ion-input>
     </ion-item>
     <!-- Fecha de Salida -->
     <ion-item class="input-item">
@@ -43,13 +42,13 @@
       <ion-input [(ngModel)]="nuevaPelicula.fecha" name="fecha" type="date" required></ion-input>
     </ion-item>
 
-
-    <!-- Insertar imagen -->
-    <ion-item class="input-item">
-      <ion-label>Imagen:</ion-label>
-      <ion-button (click)="seleccionarImagen()">Seleccionar Imagen</ion-button>
-      <ion-img *ngIf="imagenSelec" [src]="imagenSelec" class="thumbnail"></ion-img>
-    </ion-item>
+    
+<!-- Insertar imagen -->
+  <!-- <ion-item class="input-item">
+    <ion-label>Imagen:</ion-label>
+    <ion-button (click)="seleccionarImagen()">Seleccionar Imagen</ion-button>
+    <ion-img *ngIf="imagenSelec" [src]="imagenSelec" class="thumbnail"></ion-img>
+  </ion-item> -->
 
     <ion-button expand="full" type="submit">Añadir Película</ion-button>
   </form>
