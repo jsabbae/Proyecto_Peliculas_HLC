@@ -14,37 +14,46 @@
   <!-- Titulo -->
   <ion-item class="input-item">
     <ion-label>Título:</ion-label>
-    <ion-input [(ngModel)]="document.data.titulo"></ion-input>
+    <ion-input [(ngModel)]="document.data.titulo"required></ion-input>
   </ion-item>
   <!-- Descripción -->
   <ion-item class="input-item">
     <ion-label>Descripción:</ion-label>
-    <ion-input [(ngModel)]="document.data.descripcion"></ion-input>
+    <ion-input [(ngModel)]="document.data.descripcion"required></ion-input>
   </ion-item>
   <!-- Director/a -->
   <ion-item class="input-item">
     <ion-label>Director/a:</ion-label>
-    <ion-input [(ngModel)]="document.data.director"></ion-input>
+    <ion-input [(ngModel)]="document.data.director"required></ion-input>
   </ion-item>
   <!-- Música original -->
   <ion-item class="input-item">
     <ion-label>Música original:</ion-label>
-    <ion-input [(ngModel)]="document.data.musica"></ion-input>
+    <ion-input [(ngModel)]="document.data.musica"required></ion-input>
   </ion-item>
   <!-- Duración -->
   <ion-item class="input-item">
     <ion-label>Duración:</ion-label>
-    <ion-input [(ngModel)]="document.data.duracion"></ion-input>
+    <ion-input [(ngModel)]="document.data.duracion" placeholder="00:00" required></ion-input>
   </ion-item>
   <!-- Precio de entrada -->
-  <ion-item class="input-item">
-    <ion-label>Precio de entrada:</ion-label>
-    <ion-input [(ngModel)]="document.data.precio"></ion-input>
+  <ion-item>
+    <ion-label>Precio</ion-label>
+    <ion-input [(ngModel)]="document.data.precio" name="precio" type="number" inputmode="decimal" step="0.01"
+      required></ion-input>
   </ion-item>
+
   <!-- Fecha de Salida -->
+  <ion-item>
+    <ion-label>Fecha</ion-label>
+    <ion-input [(ngModel)]="document.data.fecha" name="fecha" type="date" required></ion-input>
+  </ion-item>
+
+  <!-- Imagen insertada -->
   <ion-item class="input-item">
-    <ion-label>Fecha de Salida:</ion-label>
-    <ion-input [(ngModel)]="document.data.fecha"></ion-input>
+    <ion-label>Imagen:</ion-label>
+    <ion-button (click)="seleccionarImagen()">Seleccionar Imagen</ion-button>
+    <ion-img *ngIf="imagenSelec" [src]="imagenSelec" class="thumbnail"></ion-img>
   </ion-item>
 
   <ion-button (click)="editarPelicula()">{{ isNew ? 'Guardar' : 'Modificar' }}</ion-button>

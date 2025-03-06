@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Pelicula } from '../pelicula';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
@@ -15,6 +15,10 @@ import { ImagePicker } from '@awesome-cordova-plugins/image-picker/ngx';
   standalone: false
 })
 export class DetallePage implements OnInit {
+  @Input() nuevaPelicula: { precio: number; fecha: string } = {
+    precio: 0,
+    fecha: ''
+  };
 
   //  Función  de respuesta a la alerta de eliminación de la película seleccionada
   public alertButtons = [
@@ -95,17 +99,21 @@ export class DetallePage implements OnInit {
   }
 
   editarPelicula() {
-    if (this.isNew) { //  Introduce una nueva película del botón <ion-fab-button>
-      this.firestore.collection('peliculas').add(this.document.data).then(() => {
-        //  Navega de regreso a la lista
-        this.router.navigate(['/home']);
-        console.log(`La película ${this.document.data.titulo} ha sido creada`);
+    if (this.isNew) {
+      // Subir imagen antes de guardar la nueva película
+      this.subirImagen().then(() => {
+        this.firestore.collection('peliculas').add(this.document.data).then(() => {
+          this.router.navigate(['/home']);
+          console.log(`La película ${this.document.data.titulo} ha sido creada`);
+        });
       });
-    } else {  //  Edita una película existente
-      this.firestore.collection('peliculas').doc(this.id).update(this.document.data).then(() => {
-        //  Navega de regreso a la lista
-        this.router.navigate(['/home']);
-        console.log(`La película ${this.document.data.titulo} ha sido editada`);
+    } else {
+      // Subir imagen antes de actualizar la película
+      this.subirImagen().then(() => {
+        this.firestore.collection('peliculas').doc(this.id).update(this.document.data).then(() => {
+          this.router.navigate(['/home']);
+          console.log(`La película ${this.document.data.titulo} ha sido editada`);
+        });
       });
     }
   }
