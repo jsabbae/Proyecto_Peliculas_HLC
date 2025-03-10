@@ -178,6 +178,12 @@ export class DetallePage implements OnInit {
           .then(downloadURL => {
             //  EN LA VARIABLE donloadURL SE OBTIENE LA DIRECCIÓN URL DE LA IMAGEN
             console.log("downloadURL:" + downloadURL);
+
+            // Actualizar el campo imagenURL en el documento de la película
+            this.document.data.imagenURL = downloadURL;
+            this.firestore.collection('peliculas').doc(this.id).update(this.document.data).then(() => {
+              console.log(`La URL de la imagen ha sido actualizada en el documento de la película`);
+            });
             //  this.document.data.imagenURL = downloadURL;
             //  Mostrar el mensaje de finalización de la subida
             toast.present();
@@ -195,6 +201,73 @@ export class DetallePage implements OnInit {
     this.firestoreService.eliminarArchivoPorURL(fileURL)
       .then(() => {
         toast.present();
+      }, (err) => {
+        console.log(err);
+      });
+  }
+
+  async seleccionarYSubirImagen() {
+    // Comprobar si la aplicación tiene permisos de lectura
+    this.imagePicker.hasReadPermission().then(
+      (result) => {
+        // Si no tiene permiso de lectura se solicitará al usuario
+        if (result == false) {
+          this.imagePicker.requestReadPermission();
+        } else {
+          // Abrir selector de imágenes (ImagePicker)
+          this.imagePicker.getPictures({
+            maximumImagesCount: 1,  // Permitir sólo 1 imagen
+            outputType: 1 // 1 = Base64
+          }).then(
+            async (results) => {  // En la variable de results se tiene las imágenes seleccionadas
+              if (results.length > 0) { // Si el usuario ha elegido alguna imagen
+                // EN LA VARIABLE imagenSelec QUEDA ALMACENADA LA IMAGEN SELECCIONADA
+                this.imagenSelec = "data:image/jpeg;base64," + results[0];
+                console.log("Imagen que se ha seleccionado (en Base64):" + this.imagenSelec);
+  
+                // Mensaje de espera mientras se sube la imagen
+                const loading = await this.loadingController.create({
+                  message: 'Please wait ...'
+                });
+                // Mensaje de finalización de subida de la imagen
+                const toast = await this.toastController.create({
+                  message: 'Image was updated successfully',
+                  duration: 3000
+                });
+  
+                // Carpeta del Storage donde se almacenará la imagen
+                let nombreCarpeta = "imagenes";
+  
+                // Mostrar el mensaje de espera
+                loading.present();
+                // Asignar el nombre de la imagen en función de la hora actual para
+                // evitar duplicidades de nombres
+                let nombreImagen = `${new Date().getTime()}`;
+                // Llamar al método que sube la imagen al Storage
+                this.firestoreService.subirImagenBase64(nombreCarpeta, nombreImagen, this.imagenSelec)
+                  .then(snapshot => {
+                    snapshot.ref.getDownloadURL()
+                      .then(downloadURL => {
+                        // EN LA VARIABLE downloadURL SE OBTIENE LA DIRECCIÓN URL DE LA IMAGEN
+                        console.log("downloadURL:" + downloadURL);
+                        // Actualizar el campo imagenURL en el documento de la película
+                        this.document.data.imagenURL = downloadURL;
+                        this.firestore.collection('peliculas').doc(this.id).update(this.document.data).then(() => {
+                          console.log(`La URL de la imagen ha sido actualizada en el documento de la película`);
+                        });
+                        // Mostrar el mensaje de finalización de la subida
+                        toast.present();
+                        // Ocultar mensaje de espera
+                        loading.dismiss();
+                      })
+                  })
+              }
+            },
+            (err) => {
+              console.log(err);
+            }
+          );
+        }
       }, (err) => {
         console.log(err);
       });

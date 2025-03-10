@@ -48,12 +48,15 @@
   </ion-item>
 
 
-<!-- Insertar imagen -->
-  <!-- <ion-item class="input-item">
-    <ion-label>Imagen:</ion-label>
-    <ion-button (click)="seleccionarImagen()">Seleccionar Imagen</ion-button>
-    <ion-img *ngIf="imagenSelec" [src]="imagenSelec" class="thumbnail"></ion-img>
-  </ion-item> -->
+  <!-- Insertar imagen -->
+  <!-- Mostrar la imagen si existe una URL -->
+  <div *ngIf="document.data.imagenURL">
+    <img [src]="document.data.imagenURL" alt="Imagen de la película" />
+  </div>
+
+  <!-- Botón para seleccionar y subir una imagen -->
+  <ion-button (click)="seleccionarYSubirImagen()">Seleccionar y Subir Imagen</ion-button>
+
 
   <ion-button (click)="editarPelicula()">{{ isNew ? 'Guardar' : 'Modificar' }}</ion-button>
   <ion-button color="danger" (click)="presentAlert()" *ngIf="!isNew">Borrar</ion-button>
